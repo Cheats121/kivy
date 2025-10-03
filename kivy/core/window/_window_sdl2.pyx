@@ -24,7 +24,7 @@ IF USE_X11:
 IF UNAME_SYSNAME == 'Windows':
     from .window_info cimport WindowInfoWindows
 
-cdef int _event_filter(void *userdata, SDL_Event *event) with gil:
+cdef int _event_filter(void *userdata, SDL_Event *event) noexcept with gil:
     return (<_WindowSDL2Storage>userdata).cb_event_filter(event)
 
 
@@ -437,7 +437,7 @@ cdef class _WindowSDL2Storage:
     def set_shape(self, shape, mode, cutoff, color_key):
         cdef SDL_Surface * sdl_shape
 
-        cpdef SDL_WindowShapeMode sdl_window_mode
+        cdef SDL_WindowShapeMode sdl_window_mode
         cdef SDL_WindowShapeParams parameters
         cdef SDL_Color color
         cdef int result
@@ -802,7 +802,7 @@ cdef class _WindowSDL2Storage:
         return [w, h]
 
 
-cdef SDL_HitTestResult custom_titlebar_handler_callback(SDL_Window* win, const SDL_Point* pts, void* data) with gil:
+cdef SDL_HitTestResult custom_titlebar_handler_callback(SDL_Window* win,const SDL_Point* pts,void* data) with gil:
 
     cdef int border = max(
         Config.getdefaultint('graphics','custom_titlebar_border',5),
