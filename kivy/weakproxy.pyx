@@ -254,7 +254,7 @@ cdef class WeakProxy(object):
         return int(self.__ref__())
 
     def __long__(self):
-        return long(self.__ref__())
+        return int(self.__ref__())
 
     def __float__(self):
         return float(self.__ref__())
