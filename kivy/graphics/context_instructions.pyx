@@ -86,7 +86,7 @@ cdef tuple rgb_to_hsv(float r, float g, float b):
 
 cdef tuple hsv_to_rgb(float h, float s, float v):
     if s == 0.0: return v, v, v
-    cdef long i = long(h * 6.0)
+    cdef int i = int(h * 6.0)
     cdef float f = (h * <float>6.0) - i
     cdef float p = v * (<float>1.0 - s)
     cdef float q = v * (<float>1.0 - s * f)
@@ -240,7 +240,7 @@ cdef class Color(ContextInstruction):
     '''
     def __init__(self, *args, **kwargs):
         ContextInstruction.__init__(self, **kwargs)
-        cdef long vec_size = <long>len(args)
+        cdef int vec_size = <int>len(args)
         if kwargs.get('mode', '') == 'hsv':
             if vec_size == 4:
                 self.rgba = [0, 0, 0, args[3]]
